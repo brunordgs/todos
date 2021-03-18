@@ -6,14 +6,23 @@ const todos = [
 	{ title: 'Exercise', completed: true },
 ];
 
+const filterRemainingTodos = (todos) => {
+	return todos.filter((todo) => {
+		const isCompleted = todo.completed;
+
+		return !isCompleted;
+	});
+};
+
 const deleteTodo = (todos, title) => {
 	const index = todos.findIndex((todo) => {
-		return todo.title.toLowerCase() === title.toLowerCase(); 
+		return todo.title.toLowerCase() === title.toLowerCase();
 	});
 
 	if (index > -1) {
 		todos.splice(index, 1);
 	}
-}
+};
 
-deleteTodo(todos, 'Do wosrk');
+filterTodos(todos);
+deleteTodo(todos, 'Buy food');
