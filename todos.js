@@ -1,16 +1,16 @@
-const todos = [
-	{ title: 'Order cat food', completed: true },
-	{ title: 'Clean the kitchen', completed: false },
-	{ title: 'Buy food', completed: true },
-	{ title: 'Do work', completed: false },
-	{ title: 'Exercise', completed: true },
-	{ title: 'Walk the dog', completed: true },
-];
+let todos = [];
 
 const filters = {
 	searchText: '',
 	hideCompleted: false,
 };
+
+// Check for existing saved data
+const todosJSON = localStorage.getItem('todos');
+
+if (todosJSON) {
+	todos = JSON.parse(todosJSON);
+}
 
 // Rendering todos on screen
 const renderTodos = (todos, filters) => {
@@ -48,6 +48,8 @@ const insertTodo = (todo) => {
 		title: todo,
 		completed: false,
 	});
+
+	localStorage.setItem('todos', JSON.stringify(todos));
 };
 
 // Listen for todo text change to filter it
