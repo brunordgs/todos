@@ -1,26 +1,42 @@
-const filterRemainingTodos = (todos) => {
-	return todos.filter((todo) => {
-		const isCompleted = todo.completed;
+const todos = getSavedTodos();
 
-		return !isCompleted;
-	});
+const filters = {
+	searchText: '',
+	hideCompleted: false,
 };
 
-const sortTodos = (todos) => {
-	return todos.sort((a, b) => {
-		const A = a.completed;
-		const B = b.completed;
+renderTodos(todos, filters);
 
-		return !A && B ? -1 : !B && A ? 1 : 0;
+const insertTodo = (todo) => {
+	todos.push({
+		text: todo,
+		completed: false,
 	});
+
+	saveTodos(todos);
 };
 
-const deleteTodo = (todos, title) => {
-	const index = todos.findIndex((todo) => {
-		return todo.title.toLowerCase() === title.toLowerCase();
-	});
+// Listen for todo text change to filter it
+const filterTodo = document.querySelector('#filter-todo');
+filterTodo.oninput = (e) => {
+	filters.searchText = e.target.value;
+	renderTodos(todos, filters);
+};
 
-	if (index > -1) {
-		todos.splice(index, 1);
-	}
+// Listen for hide completed todos
+const hideCompleted = document.querySelector('#hide-completed');
+hideCompleted.onchange = (e) => {
+	filters.hideCompleted = e.target.checked;
+	renderTodos(todos, filters);
+};
+
+// Inserting a new todo
+const newTodo = document.querySelector('#new-todo');
+newTodo.onsubmit = (e) => {
+	e.preventDefault();
+
+	insertTodo(e.target.elements.text.value);
+	e.target.elements.text.value = '';
+
+	renderTodos(todos, filters);
 };
