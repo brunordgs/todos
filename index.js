@@ -9,6 +9,7 @@ renderTodos(todos, filters);
 
 const insertTodo = (todo) => {
 	todos.push({
+		id: uuidv4(),
 		text: todo,
 		completed: false,
 	});
