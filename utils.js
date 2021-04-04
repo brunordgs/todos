@@ -1,3 +1,5 @@
+'use strict';
+
 const filterRemainingTodos = (todos) => {
 	return todos.filter((todo) => {
 		const isCompleted = todo.completed;
